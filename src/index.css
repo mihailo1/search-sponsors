@@ -68,3 +68,20 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+#root {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+::-webkit-scrollbar {
+  background: transparent; /* Chrome/Safari/Webkit */
+  width: 0px;
+}
+
+.scrollbar {
+  padding: 10px;
+  height: 30vh;
+  color: #efefef;
+}
