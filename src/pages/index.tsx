@@ -1,26 +1,29 @@
-import { HTMLAttributes, useState } from "react";
-import "./App.css";
-import { useCachedSponsors } from "../../hooks";
-import { Autocomplete, TextField } from "@mui/material";
-import Providers from "../Providers";
-import { debounce } from "lodash";
-import { cacheSearch, getCachedSearch } from "../../utils";
+import { useState } from 'react';
+import { Autocomplete, TextField } from '@mui/material';
+import { debounce } from 'lodash';
+import { cacheSearch, getSearch } from '@/src/utils';
+import { GetStaticProps } from 'next';
+import List from '../components/List';
+import sponsors from '@/src/assets/sponsors.json';
+import Option from '../components/Option';
 
-const List = ({ children }: HTMLAttributes<HTMLElement>) => (
-  <div className="scrollbar">{children}</div>
-);
+interface HomeProps {
+  sponsors: string[];
+}
 
-const App = () => {
+const Home = ({ sponsors }: HomeProps) => {
   const [options, setOptions] = useState<string[]>([]);
   const [isEmpty, setIsEmpty] = useState(true);
 
-  const sponsorsTable = useCachedSponsors();
+  if (!sponsors.length) {
+    return <div>Loading...</div>;
+  }
 
   const searchCachedSponsors = (value: string) => {
-    const cached = getCachedSearch()[value];
+    const cached = getSearch()[value];
     return cached
       ? cached
-      : sponsorsTable
+      : sponsors
           .filter((sponsor) =>
             sponsor.toLowerCase().includes(value.toLowerCase())
           )
@@ -28,7 +31,7 @@ const App = () => {
   };
 
   const search = debounce((_, value: string) => {
-    const isEmpty = value === "";
+    const isEmpty = value === '';
     const options = !isEmpty ? searchCachedSponsors(value) : [];
     if (!isEmpty && options.length) cacheSearch({ [value]: options });
     setOptions(options);
@@ -36,22 +39,27 @@ const App = () => {
   }, 150);
 
   return (
-    <Providers>
+    <>
       <Autocomplete
-        noOptionsText={!isEmpty && options.length === 0 ? "Nothing found" : ""}
+        className="self-center mx-auto"
+        noOptionsText={!isEmpty && options.length === 0 ? 'Nothing found' : ''}
         disablePortal
         options={options}
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Search" />}
         getOptionLabel={(option) => option}
-        renderOption={(_, option) => <span key={option}>{option}</span>}
+        renderOption={(_, option) => <Option option={option} />}
         onInputChange={search}
         {...{ PaperComponent: isEmpty ? () => null : List }}
         popupIcon={null}
         open
       />
-    </Providers>
+    </>
   );
 };
 
-export default App;
+export const getStaticProps: GetStaticProps = async () => {
+  return { props: { sponsors } };
+};
+
+export default Home;
