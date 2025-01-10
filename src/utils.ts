@@ -1,12 +1,17 @@
-export const getCached = () =>
-  JSON.parse(localStorage.getItem("store") || "{}");
-export const setCached = (values: Record<string, unknown>) =>
-  localStorage.setItem("store", JSON.stringify({ ...getCached(), ...values }));
+const getFromCache = (key: string) =>
+  JSON.parse(localStorage.getItem(key) || '{}');
 
-export const getCachedSearch = () =>
-  JSON.parse(localStorage.getItem("search") || "{}");
-export const cacheSearch = (results: { [key: string]: string[] }) =>
+const cache = (key: string, values: Record<string, unknown>) =>
   localStorage.setItem(
-    "search",
-    JSON.stringify({ ...getCachedSearch(), ...results })
+    key,
+    JSON.stringify({ ...getFromCache(key), ...values })
   );
+
+export const getSponsors = () => getFromCache('sponsors');
+export const getSearch = () => getFromCache('search');
+
+export const setCached = (values: Record<string, unknown>) =>
+  cache('sponsors', values);
+
+export const cacheSearch = (results: { [key: string]: string[] }) =>
+  cache('search', results);
