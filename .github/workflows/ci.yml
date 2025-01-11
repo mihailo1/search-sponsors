@@ -25,7 +25,10 @@ jobs:
         run: yarn
 
       - name: Run lint
-        run: yarn lint
+        run: yarn lint --fix
 
       - name: Run prettier
         run: yarn format
+
+      - name: Build project
+        run: yarn build

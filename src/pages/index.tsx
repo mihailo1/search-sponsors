@@ -6,6 +6,7 @@ import { GetStaticProps } from 'next';
 import List from '../components/List';
 import sponsors from '@/src/assets/sponsors.json';
 import Option from '../components/Option';
+import Head from 'next/head';
 
 interface HomeProps {
   sponsors: string[];
@@ -14,6 +15,7 @@ interface HomeProps {
 const Home = ({ sponsors }: HomeProps) => {
   const [options, setOptions] = useState<string[]>([]);
   const [isEmpty, setIsEmpty] = useState(true);
+  const [value, setValue] = useState('');
 
   const searchCachedSponsors = (value: string) => {
     const cached = getSearch()[value];
@@ -27,6 +29,7 @@ const Home = ({ sponsors }: HomeProps) => {
   };
 
   const search = debounce((_, value: string) => {
+    setValue(value);
     const isEmpty = value === '';
     const options = !isEmpty ? searchCachedSponsors(value) : [];
     if (!isEmpty && options.length) cacheSearch({ [value]: options });
@@ -36,6 +39,10 @@ const Home = ({ sponsors }: HomeProps) => {
 
   return (
     <>
+      <Head>
+        <title>Search Sponsors{value === '' ? '' : `: ${value}`}</title>
+        <meta name="description" content="Search for sponsors" />
+      </Head>
       <Autocomplete
         className="self-center mx-auto"
         noOptionsText={!isEmpty && options.length === 0 ? 'Nothing found' : ''}
