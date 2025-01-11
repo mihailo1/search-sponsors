@@ -12,17 +12,15 @@ export default [
       parser: tsParser, // Use TypeScript parser
       globals: globals.browser,
     },
-    rules: {
-      ...pluginJs.configs.recommended.rules, // Use the recommended rules from @eslint/js
-    },
+    ...pluginJs.configs.recommended, // Include the recommended config from @eslint/js
   },
   {
     plugins: {
       '@typescript-eslint': tsPlugin,
     },
     rules: {
-      ...tsPlugin.configs.recommended.rules, // Include TypeScript rules
-      ...tsPlugin.configs['recommended-type-checked'].rules, // If available, include type-checked rules
+      ...tsPlugin.configs.recommended.rules, // Include TypeScript recommended rules
+      ...(tsPlugin.configs['recommended-type-checked']?.rules || {}), // Include type-checked rules if available
     },
   },
   {
@@ -35,7 +33,7 @@ export default [
       },
     },
     rules: {
-      ...pluginReact.configs.recommended.rules, // Include React rules
+      ...pluginReact.configs.recommended.rules, // Include React recommended rules
     },
   },
 ];
