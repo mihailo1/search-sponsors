@@ -15,6 +15,9 @@ module.exports = [
     },
     languageOptions: {
       parser: babelParser,
+      parserOptions: {
+        requireConfigFile: false,
+      },
       sourceType: 'module',
       globals: {
         React: true,
