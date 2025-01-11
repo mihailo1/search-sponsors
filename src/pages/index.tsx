@@ -13,11 +13,8 @@ interface HomeProps {
 
 const Home = ({ sponsors }: HomeProps) => {
   const [options, setOptions] = useState<string[]>([]);
-  const [isEmpty, setIsEmpty] = useState(true);
-
-  if (!sponsors.length) {
-    return <div>Loading...</div>;
-  }
+  const [isEmpty, 
+    setIsEmpty] = useState(true);
 
   const searchCachedSponsors = (value: string) => {
     const cached = getSearch()[value];
