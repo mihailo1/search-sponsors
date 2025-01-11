@@ -12,18 +12,14 @@ export default [
       parser: tsParser, // TypeScript parser
       globals: globals.browser,
     },
-    rules: {
-      ...pluginJs.configs.recommended.rules, // JavaScript recommended rules
-    },
+    rules: pluginJs.configs.recommended.rules,
   },
   {
     files: ['**/*.ts', '**/*.tsx'],
     plugins: {
       '@typescript-eslint': tsPlugin,
     },
-    rules: {
-      ...tsPlugin.configs.recommended.rules, // TypeScript recommended rules
-    },
+    rules: tsPlugin.configs.recommended.rules,
   },
   {
     files: ['**/*.jsx', '**/*.tsx'],
@@ -35,8 +31,6 @@ export default [
         version: 'detect', // Automatically detect React version
       },
     },
-    rules: {
-      ...pluginReact.configs.recommended.rules, // React recommended rules
-    },
+    rules: pluginReact.configs.recommended.rules,
   },
 ];
