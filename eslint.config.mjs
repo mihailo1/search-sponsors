@@ -1,26 +1,28 @@
 import globals from 'globals';
-import pluginJs from '@eslint/js';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
+import * as tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import pluginReact from 'eslint-plugin-react';
+import * as pluginJs from '@eslint/js';
+import * as pluginReact from 'eslint-plugin-react';
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     languageOptions: {
+      parser: tsParser, // Use TypeScript parser
       globals: globals.browser,
-      parser: tsParser, // Use TypeScript parser for TypeScript files
+    },
+    rules: {
+      ...pluginJs.configs.recommended.rules, // Use the recommended rules from @eslint/js
     },
   },
-  ...pluginJs.configs.recommended, // Directly include the recommended config
-  ...tsPlugin.configs.recommended.rules, // Include rules from TypeScript ESLint
   {
     plugins: {
       '@typescript-eslint': tsPlugin,
     },
     rules: {
-      ...tsPlugin.configs.recommended.rules,
+      ...tsPlugin.configs.recommended.rules, // Include TypeScript rules
+      ...tsPlugin.configs['recommended-type-checked'].rules, // If available, include type-checked rules
     },
   },
   {
@@ -33,7 +35,7 @@ export default [
       },
     },
     rules: {
-      ...pluginReact.configs.recommended.rules, // Include React recommended rules
+      ...pluginReact.configs.recommended.rules, // Include React rules
     },
   },
 ];
