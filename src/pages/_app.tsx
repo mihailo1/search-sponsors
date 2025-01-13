@@ -1,4 +1,3 @@
-import React from 'react';
 import { AppProps } from 'next/app';
 import { ThemeProvider, createTheme } from '@mui/material';
 import './global.scss';
