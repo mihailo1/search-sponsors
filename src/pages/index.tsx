@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Autocomplete, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { debounce } from 'lodash';
 import { cacheSearch, getSearch } from '@/src/utils';
 import { GetStaticProps } from 'next';
@@ -7,6 +7,7 @@ import List from '../components/List';
 import sponsors from '@/src/assets/sponsors.json';
 import Option from '../components/Option';
 import Head from 'next/head';
+import Autocomplete from '../components/Autocomplete';
 
 interface HomeProps {
   sponsors: string[];
