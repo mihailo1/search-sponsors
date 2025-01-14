@@ -18,11 +18,18 @@ const Autocomplete = (props: _AutocompleteProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
     >
-      <motion.div className="">
+      <motion.div className="self-center mx-auto">
         <MUIAutocomplete
           {...props}
-          renderInput={(params) => (
-            <TextField {...params} label="Autocomplete" />
+          renderOption={(_, option) => (
+            <motion.li
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {option}
+            </motion.li>
           )}
         />
       </motion.div>
