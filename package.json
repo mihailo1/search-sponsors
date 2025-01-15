@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.2",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -20,7 +20,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.83.1",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "framer-motion": "^10.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -39,5 +40,6 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^4.6.4",
     "typescript-eslint": "^8.19.1"
-  }
+  },
+  "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
 }
