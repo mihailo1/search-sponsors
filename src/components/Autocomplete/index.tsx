@@ -1,39 +1,53 @@
-import {
-  AutocompleteProps,
-  Autocomplete as MUIAutocomplete,
-  TextField,
-} from '@mui/material';
-import { motion } from 'framer-motion';
+import { TextField } from '@mui/material';
+import { debounce } from 'lodash';
+import List from '../List';
+import Option from '../Option';
+import { Autocomplete as MUIAutocomplete, AutocompleteProps as MuiAutocompleteProps } from '@mui/material';
 
-interface _AutocompleteProps
-  extends AutocompleteProps<string, false, false, false> {
-  [key: string]: any;
+import { useState } from 'react';
+import { fetchSponsors } from '../../queries';
+
+interface AutocompleteProps extends Omit<MuiAutocompleteProps<string, false, false, false>, 'renderInput' | 'options'> {
+  setTitle: (title: string) => void;
 }
 
-const Autocomplete = (props: _AutocompleteProps) => {
+const Autocomplete = ({ setTitle }: AutocompleteProps) => {
+  const [options, setOptions] = useState<string[]>([]);
+  const [isEmpty, setIsEmpty] = useState(true);
+
+  const searchCachedSponsors = async (value: string) => {
+    const filteredSponsors = await fetchSponsors(value);
+    const options: string[] = filteredSponsors
+      .filter((sponsor: string) =>
+        sponsor?.toLowerCase().includes(value.toLowerCase())
+      )
+      .slice(0, 100);
+    return options;
+  };
+
+  const search = debounce(async (_, value: string) => {
+    setTitle(`Search Sponsors${value === '' ? '' : `: ${value}`}`);
+    const isEmpty = value === '';
+    const options = !isEmpty ? await searchCachedSponsors(value) : [];
+    setOptions(options);
+    setIsEmpty(isEmpty);
+  }, 150);
+
   return (
-    <motion.div
-      className="flex justify-center items-center h-full"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-    >
-      <motion.div className="self-center mx-auto">
-        <MUIAutocomplete
-          {...props}
-          renderOption={(_, option) => (
-            <motion.li
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {option}
-            </motion.li>
-          )}
-        />
-      </motion.div>
-    </motion.div>
+    <MUIAutocomplete
+      className="self-center mx-auto"
+      noOptionsText={!isEmpty && options.length === 0 ? 'Nothing found' : ''}
+      disablePortal
+      options={options}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Search" />}
+      getOptionLabel={(option) => option}
+      renderOption={(_, option) => <Option key={option} option={option} />}
+      onInputChange={search}
+      {...{ PaperComponent: isEmpty ? () => null : List }}
+      popupIcon={null}
+      open
+    />
   );
 };
 

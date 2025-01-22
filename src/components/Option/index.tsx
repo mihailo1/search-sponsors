@@ -1,12 +1,26 @@
-const Option = ({ option, ...props }: { option: string }) => {
-  const handleClick = () => {
-    window.open(`https://www.google.com/search?q=${option}`, '_blank');
-  };
+import { motion } from 'framer-motion';
 
+const Option = ({ option, ...props }: { option: string }) => {
   return (
-    <span className="block cursor-pointer" onClick={handleClick} {...props}>
-      {option}
-    </span>
+    <motion.li
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <a
+        className="block cursor-pointer"
+        {...props}
+        href={`https://www.google.com/search?q=${option}`}
+        target="_blank"
+        rel="noreferrer"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        {option}
+      </a>
+    </motion.li>
   );
 };
 
