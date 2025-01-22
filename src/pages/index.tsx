@@ -20,11 +20,16 @@ const Home = ({ sponsors }: HomeProps) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  let sponsors = await fetchSponsors();
-  sponsors = sponsors.filter(
-    (sponsor: string | undefined): sponsor is string => sponsor !== undefined
-  );
-  return { props: { sponsors } };
+  try {
+    let sponsors = await fetchSponsors();
+    sponsors = sponsors.filter(
+      (sponsor: string | undefined): sponsor is string => sponsor !== undefined
+    );
+    return { props: { sponsors } };
+  } catch (error) {
+    console.error('Failed to fetch sponsors:', error);
+    return { props: { sponsors: [] } };
+  }
 };
 
 export default Home;
