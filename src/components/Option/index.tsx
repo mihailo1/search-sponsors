@@ -9,7 +9,7 @@ const Option = ({ option, ...props }: { option: string }) => {
       whileTap={{ scale: 0.95 }}
     >
       <a
-        className="block cursor-pointer"
+        className="block cursor-pointer hover:text-[#b9b8b8] transition-colors"
         {...props}
         href={`https://www.google.com/search?q=${option}`}
         target="_blank"

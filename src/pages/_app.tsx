@@ -2,7 +2,7 @@ import { AppProps } from 'next/app';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import './global.scss';
+import '../styles/global.scss';
 import '../styles/tailwind.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         },
       })}
     >
+      <SpeedInsights />
       <AnimatePresence mode="wait">
         <motion.div
           className="w-full"
