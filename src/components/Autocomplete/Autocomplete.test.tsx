@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import Autocomplete from './index';
 
 // Mock lodash debounce
@@ -15,7 +15,9 @@ test('renders Autocomplete component', () => {
   const input = screen.getByLabelText(/search/i);
   expect(input).toBeInTheDocument();
 
-  fireEvent.change(input, { target: { value: 'test' } });
+  act(() => {
+    fireEvent.change(input, { target: { value: 'test' } });
+  });
 
   expect(setTitle).toHaveBeenCalledWith('Search Sponsors: test');
 });
@@ -25,7 +27,10 @@ test('renders options when input changes', async () => {
   render(<Autocomplete setTitle={setTitle} />);
 
   const input = screen.getByLabelText(/search/i);
-  fireEvent.change(input, { target: { value: 'test' } });
+  
+  await act(async () => {
+    fireEvent.change(input, { target: { value: 'test' } });
+  });
 
   const options = await screen.findAllByText((content, element) => {
     return element?.tagName.toLowerCase() === 'a' && content.includes('test');
