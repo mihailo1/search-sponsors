@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { AnimatePresence, motion } from 'framer-motion';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './global.scss';
 import '../styles/tailwind.css';
 
