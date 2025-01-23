@@ -2,7 +2,7 @@ import { companiesMock } from "./mocks";
 
 export const fetchSponsors = async (query?: string) => {
   if (process.env.NEXT_PUBLIC_IS_DEV) return companiesMock;
-
+  
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/strings/search?query=${query ?? ''}`,
     {
@@ -12,12 +12,12 @@ export const fetchSponsors = async (query?: string) => {
       },
     }
   );
-
+  
   if (!response.ok) {
     console.error(`Error fetching sponsors: ${response.statusText}`);
     return [];
   }
-
+  
   const data = await response.json();
   return data.length ? data.map((item: { value: string }) => item.value) : [];
 };
