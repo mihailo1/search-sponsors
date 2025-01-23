@@ -1,6 +1,10 @@
+import { companiesMock } from "./mocks";
+
 export const fetchSponsors = async (query?: string) => {
+  if (process.env.NEXT_PUBLIC_IS_DEV) return companiesMock;
+
   const response = await fetch(
-    `http://192.168.8.151:8000/api/strings/search?query=${query ?? ''}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/strings/search?query=${query ?? ''}`,
     {
       method: 'GET',
       headers: {

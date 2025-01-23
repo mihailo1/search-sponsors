@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Autocomplete from './index';
 
+// Mock lodash debounce
 jest.mock('lodash', () => ({
   ...jest.requireActual('lodash'),
   debounce: jest.fn((fn) => fn),

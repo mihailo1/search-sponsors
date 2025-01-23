@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getSponsors, setCached } from './utils';
 import { fetchSponsors } from './queries';
 
+// deprecated
 export const useCachedSponsors = () => {
   const [sponsors, setSponsors] = useState<string[]>([]);
 

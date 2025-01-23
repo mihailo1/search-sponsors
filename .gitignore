@@ -16,6 +16,7 @@ dist-ssr
 
 # Editor directories and files
 .vscode/*
+.yarn/*
 !.vscode/extensions.json
 .idea
 .DS_Store
@@ -25,3 +26,8 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+.pnp.cjs
+.pnp.loader.mjs
+.yarnrc.yml
+yarn.lock
