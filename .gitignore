@@ -31,5 +31,3 @@ dist-ssr
 .pnp.loader.mjs
 .yarnrc.yml
 yarn.lock
-
-.env.local

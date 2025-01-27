@@ -19,8 +19,12 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
+      - name: Load environment variables from .env.production
+        run: |
+          cat .env.production >> $GITHUB_ENV
+
       - name: Set environment variables
-        run: echo "NEXT_PUBLIC_API_URL=https://michael-sponsors-be-84.deno.dev/api" >> $GITHUB_ENV
+        run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
