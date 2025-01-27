@@ -3447,12 +3447,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:^19.0.0-beta-63e3235-20250105":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"babel-plugin-react-compiler@npm:19.0.0-beta-27714ef-20250124":
+  version: 19.0.0-beta-27714ef-20250124
+  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-27714ef-20250124"
   dependencies:
     "@babel/types": "npm:^7.19.0"
-  checksum: 10c0/f64c8f11b893b6bd355a8b3f20b4f15486cee18f98560f2df991abb315b4b037fbf6ccda832eede446fac6140a942e73984a6c5e7e8f5ea5fe1fb0b45d560482
+  checksum: 10c0/f7733f9461e5ca66af52dcc072a3e7f48d8020c9237f7621e4fc6229d74ae813c8883b7c5b904e69766a4de14599b95422e0374991cbbccceae3fbc17bd08262
   languageName: node
   linkType: hard
 
@@ -4202,7 +4202,7 @@ __metadata:
     ansi-regex: "npm:^6.0.1"
     autoprefixer: "npm:^10.4.20"
     babel-jest: "npm:^29.7.0"
-    babel-plugin-react-compiler: "npm:^19.0.0-beta-63e3235-20250105"
+    babel-plugin-react-compiler: "npm:19.0.0-beta-27714ef-20250124"
     cross-fetch: "npm:^4.1.0"
     eslint: "npm:^9.17.0"
     eslint-plugin-react: "npm:^7.37.3"

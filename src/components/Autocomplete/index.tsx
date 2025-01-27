@@ -3,12 +3,11 @@ import { debounce } from 'lodash';
 import List from '../List';
 import Option from '../Option';
 import { Autocomplete as MUIAutocomplete, AutocompleteProps as MuiAutocompleteProps } from '@mui/material';
-
-import { useState } from 'react';
+import { useState, Dispatch, SetStateAction, RefObject } from 'react';
 import { fetchSponsors } from '../../queries';
 
 interface AutocompleteProps extends Omit<MuiAutocompleteProps<string, false, false, false>, 'renderInput' | 'options'> {
-  setTitle: (title: string) => void;
+  setTitle: Dispatch<SetStateAction<string>>;
 }
 
 const Autocomplete = ({ setTitle }: AutocompleteProps) => {
