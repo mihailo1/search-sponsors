@@ -17,11 +17,12 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
   text-decoration: inherit;
 }
-a:hover {
-  color: #535bf2;
+
+html body {
+  background-color: #212121;
+  height: 100vh;
 }
 
 body {
@@ -61,27 +62,22 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
-  }
   button {
     background-color: #f9f9f9;
   }
 }
 
-#root {
+#__next {
+  height: 100%;
   display: flex;
   width: 100%;
   justify-content: center;
+  place-items: center;
 }
 
-::-webkit-scrollbar {
-  background: transparent; /* Chrome/Safari/Webkit */
-  width: 0px;
-}
-
-.scrollbar {
-  padding: 10px;
-  height: 30vh;
-  color: #efefef;
+.neumorphism-border {
+  // https://neumorphism.io/#e0e0e0
+  border-radius: 20px;
+  box-shadow: inset 10px 10px 20px #1b1b1b,
+            inset -10px -10px 20px #272727;
 }

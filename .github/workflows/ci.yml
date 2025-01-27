@@ -16,10 +16,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install NVM
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          nvm install 22
+          nvm use 22
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '22'
+
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: ./.next/cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: yarn
@@ -30,5 +46,22 @@ jobs:
       - name: Run prettier
         run: yarn format
 
+      # - name: Set environment variables
+      #   run: echo "NEXT_PUBLIC_IS_DEV=true=${{ secrets.NEXT_PUBLIC_API_URL }}" >> $GITHUB_ENV
+
+      - name: Set environment variables
+        run: echo "NEXT_PUBLIC_IS_DEV=true" >> $GITHUB_ENV
+
       - name: Build project
         run: yarn build
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Save cache
+        uses: actions/cache@v3
+        with:
+          path: ./.next/cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
