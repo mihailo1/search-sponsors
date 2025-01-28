@@ -46,11 +46,12 @@ jobs:
       - name: Run prettier
         run: yarn format
 
-      # - name: Set environment variables
-      #   run: echo "NEXT_PUBLIC_IS_DEV=true=${{ secrets.NEXT_PUBLIC_API_URL }}" >> $GITHUB_ENV
+      - name: Load environment variables from .env.production
+        run: |
+          cat .env.production >> $GITHUB_ENV
 
       - name: Set environment variables
-        run: echo "NEXT_PUBLIC_IS_DEV=true" >> $GITHUB_ENV
+        run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
 
       - name: Build project
         run: yarn build
