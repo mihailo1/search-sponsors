@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "jest",
-    "test:watch": "NEXT_PUBLIC_API_URL=https://michael-sponsors-be-84.deno.dev/api jest --watch"
+    "test:watch": "NEXT_PUBLIC_IS_DEV=true jest --watch"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
