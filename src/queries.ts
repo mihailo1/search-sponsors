@@ -1,8 +1,8 @@
-import { companiesMock } from "./mocks";
+import localList from "./assets/sponsors.json";
 
 export const fetchSponsors = async (query?: string) => {
-  console.log('fetchSponsors', process.env.NEXT_PUBLIC_IS_DEV);
-  if (process.env.NEXT_PUBLIC_IS_DEV) return companiesMock;
+  // use local json
+  if (process.env.NEXT_PUBLIC_IS_DEV) return localList;
   
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/strings/search?query=${query ?? ''}`,
