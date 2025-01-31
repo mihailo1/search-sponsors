@@ -29,11 +29,13 @@ test('renders options when input changes', async () => {
   const input = screen.getByLabelText(/search/i);
   
   await act(async () => {
-    fireEvent.change(input, { target: { value: 'test' } });
+    fireEvent.change(input, { target: { value: 'uber' } });
   });
 
-  const options = await screen.findAllByText((content, element) => {
-    return element?.tagName.toLowerCase() === 'a' && content.includes('test');
+  await act(async () => {
+    const options = await screen.findAllByText((content, element) => {
+      return element?.tagName.toLowerCase() === 'a' && content.includes('uber');
+    });
+    expect(options.length).toBeGreaterThan(0);
   });
-  expect(options.length).toBeGreaterThan(0);
 });
